@@ -21,4 +21,5 @@ from security import views as securityViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', securityViews.home),
+    path('alerts/', securityViews.alerts),
 ]

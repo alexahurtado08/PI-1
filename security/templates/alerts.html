@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Alertas</h1>
+
+{% for alerta in alertass %}
+    
+    <h3>{{ alerta.id }}</h3>
+    <h3>{{ alerta.triggered_at }}</h3>
+    <h3>{{ alerta.hora }}</h3>
+
+{% endfor %}
+
+{% endblock content%}   
