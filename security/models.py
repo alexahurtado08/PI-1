@@ -17,10 +17,9 @@ class Fotografia(models.Model):
         return f"Fotografía {self.id}"
 
 
-
-class PersonalAutorizado(models.Model):
+class AuthorizedPersonnel(models.Model):
     nombre = models.CharField(max_length=100)
-    foto = models.ImageField(upload_to='personal_autorizado/')
+    foto = models.ImageField(upload_to='authorized_personnel/')
 
     def __str__(self):
         return self.nombre

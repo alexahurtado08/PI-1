@@ -2,14 +2,27 @@
 
 {% block content %}
 
-<h1>Alertas</h1>
+<div class="container align-text-top mt-5">
+    <h1>Alerts</h1>
+    <h2 class="text-secondary">Below you can see all the registered alerts</h2>
+    <div style="height: 50px;"></div> <!-- Deja un espacio de 50px -->
+</div>
 
-{% for alerta in alertass %}
-    
-    <h3>{{ alerta.id }}</h3>
-    <h3>{{ alerta.triggered_at }}</h3>
-    <h3>{{ alerta.hora }}</h3>
+<div class="container">
+    {% for alerta in alertass %}
+    <div class="card mb-3" style="width: 22rem;">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Alert id: {{ alerta.id }}</h5>
+                  <p class="card-text">{{ alerta.triggered_at }}</p>
+                  <p class="card-text"><small class="text-muted">{{ alerta.hora }}</small></p>
+                </div>
+              </div>
+         </div>
+      </div>
+    {% endfor %}
+  </div>
 
-{% endfor %}
+  {% endblock content%}
 
-{% endblock content%}   

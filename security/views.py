@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Alert
 from django.shortcuts import render
-from .models import PersonalAutorizado
+from .models import AuthorizedPersonnel
 
 
 # Create your views here.
@@ -12,8 +12,8 @@ def home(request):
 
 def alerts(request):
     alertass=Alert.objects.all()
-    return render(request, 'alerts.html')
+    return render(request, 'alerts.html', {'alertass':alertass})
 
-def personal_autorizado(request):
-    personal = PersonalAutorizado.objects.all()
-    return render(request, 'personal_autorizado.html', {'personal': personal})
+def personnel(request):
+    personal = AuthorizedPersonnel.objects.all()
+    return render(request, 'personnel.html', {'personal': personal})
