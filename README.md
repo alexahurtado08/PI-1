@@ -82,9 +82,10 @@ python -m django --version
     ```bash
     pip install -r requirements.txt
     
-8.Once the libraries are installed, you can proceed with project setup and then run the server:
+8. Once the libraries are installed, you can proceed with project setup and then run the server:
    
    python manage.py migrate
+   
    python manage.py 
 
 9. Access http://127.0.0.1:8000 to see the project in action.
