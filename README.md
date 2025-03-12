@@ -54,6 +54,46 @@ SafeDesk is an advanced security system designed to protect university computers
 4. **Tracking:** Security personnel can view real-time location and user details.
 5. **Logging:** All events are stored for future review and analysis.
 
+   # SafeDesk – Library Installation
+   ## Prerequisites
+
+- Python 3.10 or higher.
+- pip (Python package manager).
+
+## Installing the Required Libraries
+
+Follow these steps to install the necessary libraries:
+
+1. Open a terminal or command prompt.
+2. Navigate to the root directory of the project
+3. clone our project using git clone [link of our project]
+
+4. Run the following command to install the dependencies:
+
+   ```bash
+   pip install django
+   
+5.verify the intallation by running:
+python -m django --version
+
+6. you will find an archive called requirements.txt
+7. use the next commant to install the libraries that you found in the .txt
+    ```bash
+    pip install -r requirements.txt
+    
+8. Once the libraries are installed, you can proceed with project setup and then run the server:
+   
+   python manage.py migrate
+   
+   python manage.py 
+
+9. Access http://127.0.0.1:8000 to see the project in action.
+
+
+
+
+
+
 ## Contributors
 Alexandra Hurtado 
 Mariana Valderrama 
