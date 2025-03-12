@@ -73,13 +73,21 @@ Follow these steps to install the necessary libraries:
 
    ```bash
    pip install django
-   Verify the installation by running:
-verify the intallation by running:
+   
+5.verify the intallation by running:
 python -m django --version
-Once the libraries are installed, you can proceed with project setup and then run the server:
-python manage.py migrate
-python manage.py runserver
-Access http://127.0.0.1:8000 to see the project in action.
+
+6. you will find an archive called requirements.txt
+7. use the next commant to install the libraries that you found in the .txt
+    ```bash
+    pip install -r requirements.txt
+    
+8.Once the libraries are installed, you can proceed with project setup and then run the server:
+   
+   python manage.py migrate
+   python manage.py 
+
+9. Access http://127.0.0.1:8000 to see the project in action.
 
 
 
