@@ -6,6 +6,7 @@ from django.db import models
 class Alert(models.Model):
    
     triggered_at = models.DateTimeField(auto_now_add=True, help_text="Fecha y hora en que se activó la alarma")
+    active_boolean = models.BooleanField(default=True, help_text="Indica si la alarma está activa")
     
 class Fotografia(models.Model):
     id = models.AutoField(primary_key=True)
