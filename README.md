@@ -54,7 +54,6 @@ SafeDesk is an advanced security system designed to protect university computers
 4. **Tracking:** Security personnel can view real-time location and user details.
 5. **Logging:** All events are stored for future review and analysis.
 
-   ###delevery2
    # SafeDesk – Library Installation
    ## Prerequisites
 
