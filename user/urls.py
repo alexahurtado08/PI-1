@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from security import views as securityViews
+from administration import views as adminViews
+from user import views as userViews
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
@@ -26,10 +28,10 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', securityViews.home, name='home'),
-    path('alerts/', securityViews.alerts, name='alerts'),
+    path('', userViews.home, name='home'),
+    path('alerts/', adminViews.alerts, name='alerts'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    path('personnel', securityViews.personnel, name='personnel'),
+    path('personnel', userViews.personnel, name='personnel'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

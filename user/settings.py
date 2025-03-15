@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user',
     'security',
+    'administration',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'safedesk.urls'
+ROOT_URLCONF = 'user.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'safedesk.wsgi.application'
+WSGI_APPLICATION = 'user.wsgi.application'
 
 
 # Database
