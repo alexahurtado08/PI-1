@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
-
 {% block content %}
-
 <div class="container text-center mt-5">
     <h1>Welcome to <span class="text-primary">SafeDesk</span></h1>
     <h2 class="text-secondary">"Smart security for a connected campus"</h2>
 
     <div class="row mt-4">
+        <!-- Tarjetas de características -->
         <!-- Card 1 -->
         <div class="col-md-4">
             <div class="card feature-card">
@@ -44,13 +44,11 @@
     </div>
 
     <div style="height: 50px;"></div>
-    <form action="{% url 'alerts' %}">
-        <div class="mb-3">
-            <h2 class="text-secondary">What do you want to do?</h2>
-        </div>
-        <button type="menu" class="btn btn-primary">Check Active Alerts</button>
-    </form> 
+
+    <!-- Botón de ingresar o sign up -->
+    <div>
+        <h2 class="text-secondary mb-3">What do you want to do?</h2>
+        <a href="{% url 'login' %}" class="btn btn-primary">Sign In / Sign Up</a>
+    </div>
 </div>
-
-{% endblock content %}
-
+{% endblock %}

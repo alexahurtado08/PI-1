@@ -23,7 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
 from django.views.static import serve
-
+from . import views
 
 
 urlpatterns = [
@@ -32,6 +32,9 @@ urlpatterns = [
     path('alerts/', adminViews.alerts, name='alerts'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('personnel', userViews.personnel, name='personnel'),
+    path('about/', views.about, name='about'),
+     path('', views.landing_page, name='landing'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

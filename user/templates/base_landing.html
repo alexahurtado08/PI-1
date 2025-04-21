@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SafeDesk - Landing</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <!-- Navbar de landing -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'landing' %}">SafeDesk</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'landing' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary ms-2" href="{% url 'login' %}">Sign In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

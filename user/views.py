@@ -9,3 +9,11 @@ def home(request):
 def personnel(request):
     personal = AuthorizedPersonnel.objects.all()
     return render(request, 'personnel.html', {'personal': personal})
+
+
+def about(request):
+    return render(request, 'about.html')
+
+def landing_page(request):
+    return render(request, 'landing.html')
+
