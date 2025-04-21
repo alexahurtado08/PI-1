@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 
 
@@ -101,6 +102,23 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+LOGIN_URL = reverse_lazy('login')
+# settings.py
+LOGIN_REDIRECT_URL = 'home'  # O la ruta que prefieras
+# Configuración para redirigir después de logout
+LOGOUT_REDIRECT_URL = 'login'  # Redirige a la página de login
+
+# Mensajes que se muestran cuando el usuario cierra sesión
+MESSAGE_TAGS = {
+    'success': 'alert alert-success',
+}
+
+
+
+
+
+
 
 
 # Password validation

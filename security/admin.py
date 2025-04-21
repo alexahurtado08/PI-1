@@ -5,3 +5,4 @@ from user.models import AuthorizedPersonnel
 # Register your models here.
 admin.site.register(Fotografia)
 admin.site.register(AuthorizedPersonnel)
+
