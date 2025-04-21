@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_landing.html' %}
 
 {% load static %}
 
@@ -48,7 +48,7 @@
     <!-- Botón de ingresar o sign up -->
     <div>
         <h2 class="text-secondary mb-3">What do you want to do?</h2>
-        <a href="{% url 'login' %}" class="btn btn-primary">Sign In / Sign Up</a>
+        <a href="{% url 'login' %}" class="btn btn-primary">Sign In</a>
     </div>
 </div>
 {% endblock %}

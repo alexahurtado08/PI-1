@@ -1,23 +1,13 @@
-"""
-URL configuration for safedesk project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
+from django.views.static import serve
+from django.conf import settings
+from django.conf.urls.static import static
+
 from security import views as securityViews
 from administration import views as adminViews
+from user import views as userViews  # <- Aquí están tus vistas de login, registrar, etc.
+from user.views import custom_logout
 from user import views as userViews
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,16 +18,23 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', userViews.home, name='home'),
     path('alerts/', adminViews.alerts, name='alerts'),
+    path('personnel', userViews.personnel, name='personnel'),
+    path('registrar/', userViews.registrar_usuario, name='registrar_usuario'),
+    path('login/', userViews.login_view, name='login'),
+    path('logout/', custom_logout, name='logout'),
+    path('administrar-usuarios/', userViews.admin_users_view, name='admin_users'),
+    path('administrar-usuarios/eliminar/<int:user_id>/', userViews.delete_user_view, name='delete_user'),
+    # Manejo de archivos multimedia
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('personnel', userViews.personnel, name='personnel'),
     path('about/', views.about, name='about'),
-     path('', views.landing_page, name='landing'),
+     path('', views.index, name='index'),  # Redirecciona según el estado de sesión
+    path('home/', userViews.home, name='home'),
+    path('landing/', views.landing_page, name='landing'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
+# Extra para debug
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
