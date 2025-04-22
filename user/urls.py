@@ -27,6 +27,8 @@ urlpatterns = [
     path('administrar-usuarios/eliminar/<int:user_id>/', userViews.delete_user_view, name='delete_user'),
     path('computadoras/', computers_view, name='computadoras'),
     path('computadoras/registrar/', registrar_computadora, name='registrar_computadora'),
+    path('computadora/eliminar/<int:computadora_id>/', views.eliminar_computadora, name='eliminar_computadora'),
+   
     # Manejo de archivos multimedia
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('personnel', userViews.personnel, name='personnel'),
