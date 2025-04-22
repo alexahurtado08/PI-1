@@ -8,17 +8,13 @@ from security import views as securityViews
 from administration import views as adminViews
 from user import views as userViews  # <- Aquí están tus vistas de login, registrar, etc.
 from user.views import custom_logout
-from user import views as userViews
-from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import path, re_path
-from django.views.static import serve
 from . import views
 from .views import computers_view, registrar_computadora
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('alerts/', adminViews.alerts, name='alerts'),
+    path('api/alerts/', adminViews.alertas_json, name='alertas_json'),
     path('personnel', userViews.personnel, name='personnel'),
     path('registrar/', userViews.registrar_usuario, name='registrar_usuario'),
     path('login/', userViews.login_view, name='login'),
