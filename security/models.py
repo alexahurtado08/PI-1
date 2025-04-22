@@ -6,5 +6,11 @@ class Fotografia(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     fecha_subida = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def _str_(self):
         return f"Fotografía {self.id}"
+
+
+class Computer(models.Model):
+    model = models.CharField(max_length=100)
+    purchase_date = models.DateField()  # 👈 Este debe ser un DateField
+    previous_repairs = models.TextField(blank=True, null=True)

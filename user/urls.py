@@ -14,7 +14,7 @@ from django.conf.urls.static import static
 from django.urls import path, re_path
 from django.views.static import serve
 from . import views
-
+from .views import computers_view, registrar_computadora
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +25,8 @@ urlpatterns = [
     path('logout/', custom_logout, name='logout'),
     path('administrar-usuarios/', userViews.admin_users_view, name='admin_users'),
     path('administrar-usuarios/eliminar/<int:user_id>/', userViews.delete_user_view, name='delete_user'),
+    path('computadoras/', computers_view, name='computadoras'),
+    path('computadoras/registrar/', registrar_computadora, name='registrar_computadora'),
     # Manejo de archivos multimedia
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('personnel', userViews.personnel, name='personnel'),

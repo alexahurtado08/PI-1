@@ -10,7 +10,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
-
+from .ComputerForm import ComputerForm
+from security.models import Computer
 
 # Vista de inicio, donde rediriges si el usuario no está autenticado
 @login_required
@@ -113,3 +114,19 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def computers_view(request):
+    computadoras = Computer.objects.all()  # Obtener todas las computadoras
+    return render(request, 'computers.html', {'computadoras': computadoras})
+
+
+
+def registrar_computadora(request):
+    if request.method == 'POST':
+        form = ComputerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('computadoras')  # Reemplaza con tu URL correcta
+    else:
+        form = ComputerForm()
+    return render(request, 'registrar_computadora.html', {'form': form})
