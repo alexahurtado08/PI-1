@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
 from .ComputerForm import ComputerForm
 from security.models import Computer
+from django.shortcuts import get_object_or_404, redirect
 
 # Vista de inicio, donde rediriges si el usuario no está autenticado
 @login_required
@@ -130,3 +131,12 @@ def registrar_computadora(request):
     else:
         form = ComputerForm()
     return render(request, 'registrar_computadora.html', {'form': form})
+
+
+
+@login_required
+@user_passes_test(es_admin)
+def eliminar_computadora(request, computadora_id):
+    computadora = get_object_or_404(Computer, id=computadora_id)
+    computadora.delete()
+    return redirect('computadoras')
