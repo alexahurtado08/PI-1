@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Administrar Usuarios</h2>
+  <h2>Manage users</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -20,7 +20,7 @@
         <td>
           <form method="POST" action="{% url 'delete_user' u.id %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
           </form>
         </td>
       </tr>
