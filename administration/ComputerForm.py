@@ -1,5 +1,5 @@
 from django import forms
-from security.models import Computer
+from .models import Computer
 
 class ComputerForm(forms.ModelForm):
     purchase_date = forms.DateField(

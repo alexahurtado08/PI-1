@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from user.ComputerForm import ComputerForm 
+from administration.ComputerForm import ComputerForm 
 
 
 def registrar_computadora(request):

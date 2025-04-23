@@ -10,7 +10,3 @@ class Fotografia(models.Model):
         return f"Fotografía {self.id}"
 
 
-class Computer(models.Model):
-    model = models.CharField(max_length=100)
-    purchase_date = models.DateField()  # 👈 Este debe ser un DateField
-    previous_repairs = models.TextField(blank=True, null=True)

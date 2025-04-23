@@ -9,7 +9,7 @@ from administration import views as adminViews
 from user import views as userViews  # <- Aquí están tus vistas de login, registrar, etc.
 from user.views import custom_logout
 from . import views
-from .views import computers_view, registrar_computadora
+from administration.views import computers_view, registrar_computadora
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,8 +23,8 @@ urlpatterns = [
     path('administrar-usuarios/', userViews.admin_users_view, name='admin_users'),
     path('administrar-usuarios/eliminar/<int:user_id>/', userViews.delete_user_view, name='delete_user'),
     path('computadoras/', computers_view, name='computadoras'),
-    path('computadoras/registrar/', registrar_computadora, name='registrar_computadora'),
-    path('computadora/eliminar/<int:computadora_id>/', views.eliminar_computadora, name='eliminar_computadora'),
+    path('computadoras/registrar/', adminViews.registrar_computadora, name='registrar_computadora'),
+    path('computadora/eliminar/<int:computadora_id>/', adminViews.eliminar_computadora, name='eliminar_computadora'),
    
     # Manejo de archivos multimedia
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
