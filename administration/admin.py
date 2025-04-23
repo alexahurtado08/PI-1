@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import Alert
-from .models import Fotografia
+from security.models import Fotografia, Computer
 from user.models import AuthorizedPersonnel
-from administration.models import Computer
+
 
 # Register your models here.
 admin.site.register(Alert)
