@@ -23,8 +23,18 @@ def alertas_json(request):
 
 def update_alert(request):
     google = GoogleSheet(file_name_gs, google_sheet, sheet_name)
-    alerta = google.get_last_row()
-    return JsonResponse(alerta, safe=False)
+    alerta_data = google.get_last_row()  # Suponiendo que devuelve una lista
+
+    if alerta_data:
+        alerta, created = Alert.objects.get_or_create(pk=1)  # Solo una alerta
+        alerta.fecha = alerta_data[0]
+        alerta.mensaje = alerta_data[2]
+        alerta.estado = alerta_data[3]
+        alerta.save()
+
+        return JsonResponse(alerta_data, safe=False)
+    else:
+        return JsonResponse({'error': 'No se encontró alerta'}, status=404)
 
 
 

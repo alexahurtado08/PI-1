@@ -121,13 +121,14 @@ def computers_view(request):
     return render(request, 'computers.html', {'computadoras': computadoras})
 
 
-
+@login_required
+@user_passes_test(es_admin)
 def registrar_computadora(request):
     if request.method == 'POST':
         form = ComputerForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('computadoras')  # Reemplaza con tu URL correcta
+            return redirect('computadoras')  
     else:
         form = ComputerForm()
     return render(request, 'registrar_computadora.html', {'form': form})
