@@ -10,8 +10,9 @@ class ComputerForm(forms.ModelForm):
     )
 
     class Meta:
+        serial = Computer
         model = Computer
-        fields = ['model', 'purchase_date', 'previous_repairs']
+        fields = ['serial','model', 'purchase_date', 'previous_repairs']
         widgets = {
             'model': forms.TextInput(attrs={'class': 'form-control'}),
             'previous_repairs': forms.Textarea(attrs={'class': 'form-control'}),

@@ -10,6 +10,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Serial</th>
             <th>Model</th>
             <th>Purchase Date</th>
             <th>Previous Repairs</th>
@@ -19,6 +20,7 @@
     <tbody>
         {% for c in computadoras %}
         <tr>
+            <td>{{ c.serial }}</td>
             <td>{{ c.model }}</td>
             <td>{{ c.purchase_date }}</td>
             <td>{{ c.previous_repairs }}</td>
