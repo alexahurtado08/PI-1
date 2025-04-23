@@ -9,7 +9,7 @@ import json
 import uuid
 
 file_name_gs = "credenciales.json"
-google_sheet = "Pruebas"
+google_sheet = "Datos SafeDesk"
 sheet_name = "Hoja 1"
 
 def alerts(request):
@@ -21,22 +21,12 @@ def alertas_json(request):
 
     return JsonResponse(alertas, safe=False)
 
+def update_alert(request):
+    google = GoogleSheet(file_name_gs, google_sheet, sheet_name)
+    alerta = google.get_last_row()
+    return JsonResponse(alerta, safe=False)
 
-def alert_notification(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            # Aquí puedes hacer lo que quieras con los datos: guardarlos, imprimirlos, etc.
-            print("Datos recibidos:", data)
 
-            # Ejemplo: guardar como Alerta si tienes un modelo
-            # Alerta.objects.create(**data)
-
-            return JsonResponse({'status': 'success', 'message': 'Dato recibido correctamente'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-
-    return JsonResponse({'status': 'error', 'message': 'Solo se permite POST'}, status=405)
 
 
 

@@ -1,56 +1,31 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} <!-- Cambio de base.html a home.html -->
+{% load static %} <!-- Carga de archivos estáticos (imagenes) -->
+{% block content %} <!-- Bloque de contenido -->
 
+<!-- Sección principal web -->
+<div class="container mt-5"> <!-- container me centra el contenido y me da margenes lat. (mt-2, es el margen sup.) -->
+    <div class="row align-items-center"> <!-- me alinea contenido de las columnas al centro -->
+        <!-- Sección de Texto -->
+        <div class="col-md-5 text-start"> <!-- ocupa 5 de las 12 columnas en disp. medianos y text-start me alinea a izquierda -->
+            <h1>Welcome to <span class="text-primary" >SafeDesk</span></h1><!-- negrita y color de texto oscuro (#343a40 en Bootstrap) -->
+            <p class="text-secondary fs-5"> <!-- color letra gris tamaño de letra 20xp en bootstrap -->
+                "Smart security for a connected campus"
+            </p> 
 
-{% block content %}
-
-<div class="container text-center mt-5">
-    <h1>Welcome to <span class="text-primary">SafeDesk</span></h1>
-    <h2 class="text-secondary">"Smart security for a connected campus"</h2>
-
-    <div class="row mt-4">
-        <!-- Card 1 -->
-        <div class="col-md-4">
-            <div class="card feature-card">
-                <img src="{% static 'images/feature1.png' %}" class="card-img-top" alt="Real-time Alerts">
-                <div class="card-body">
-                    <h5 class="card-title">Real-time Alerts</h5>
-                    <p class="card-text">SafeDesk notifies security instantly when an unauthorized attempt to move a computer is detected.</p>
-                </div>
+            <!-- Botón para ver alertas-->
+            <div style="height: 50px;"></div> 
+            <div>
+                <a href="{% url 'alerts' %}" class="btn btn-primary">Check alerts 🔊</a>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="col-md-4">
-            <div class="card feature-card">
-                <img src="{% static 'images/feature2.png' %}" class="card-img-top" alt="IoT Integration">
-                <div class="card-body">
-                    <h5 class="card-title">IoT Integration</h5>
-                    <p class="card-text">Our hardware sensors detect movements and ensure maximum security in computer labs.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-4">
-            <div class="card feature-card">
-                <img src="{% static 'images/feature_3.png' %}" class="card-img-top" alt="AI Facial Recognition">
-                <div class="card-body">
-                    <h5 class="card-title">AI Facial Recognition</h5>
-                    <p class="card-text">A smart camera system identifies intruders and provides detailed security reports.</p>
-                </div>
-            </div>
+        <!-- Imagen ajustada -->
+        <div class="col-md-7 text-end"> <!-- Imagen más a la derecha -->
+            <img src="{% static 'images/logo_.png' %}" class="img-fluid" alt="image_homep"> 
         </div>
     </div>
-
-    <div style="height: 50px;"></div>
-    <form action="{% url 'alerts' %}">
-        <div class="mb-3">
-            <h2 class="text-secondary">What do you want to do?</h2>
-        </div>
-        <button type="menu" class="btn btn-primary">Check Active Alerts</button>
-    </form> 
 </div>
 
 {% endblock content %}
+
 

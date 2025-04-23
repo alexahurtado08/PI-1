@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('alerts/', adminViews.alerts, name='alerts'),
     path('api/alerts/', adminViews.alertas_json, name='alertas_json'),
+    path('update/alerts/', adminViews.update_alert, name='update_alert'),
     path('personnel', userViews.personnel, name='personnel'),
     path('registrar/', userViews.registrar_usuario, name='registrar_usuario'),
     path('login/', userViews.login_view, name='login'),

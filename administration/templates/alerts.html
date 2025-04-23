@@ -1,120 +1,88 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Historial de Alertas</title>
-    <style>
-        
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+    .card {
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+        width: 600px;
+    }
 
-        .card {
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 600px;
-        }
+    .card-green {
+        box-shadow: 0 4px 6px rgba(35, 198, 30, 0.1);
+        border-color: green ;
+    }
 
-        .card h3 {
-            margin-top: 0;
-            font-size: 18px;
-            color: #333;
-        }
+    .card-red {
+        box-shadow: 0 4px 6px rgba(204, 6, 6, 0.1);
+        border-color: red ;
+    }
 
-        .card p {
-            margin: 5px 0;
-            color: #555;
-        }
-    </style>
-</head>
+    .card h3 {
+        margin-top: 0;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.85);
+    }
 
-<body>
-  <div class="container align-text-top mt-5">
-    <h1>📢 History of alerts</h1>
+    .card p {
+        margin: 5px 0;
+        color: rgba(0, 0, 0, 0.85);
+    }
+</style>
+
+<div class="container align-text-top mt-5">
+    <h1>🔊 History of alerts</h1>
     <p>Bellow you can see all the alerts registered in the system...</p>
     <div id="alertas-container" class="cards-container"></div>
     <div style="height: 50px;"></div> 
-  </div>
+</div>
 
-  <script>
-    let cantidadAnterior = 0;
+<script>
+    function actualizarAlerta() {
+      fetch("/update/alerts/")
+          .then(response => response.json())
+          .then(alerta => {
+              let container = document.getElementById("alertas-container");
+              container.innerHTML = ""; // Limpiar
 
-    function notificarNuevaAlerta(nuevaCantidad) {
-      if (nuevaCantidad > cantidadAnterior) {
-        // ⚠️ Hay nuevas alertas
-        alert("⚠️¡New alert!");
-        // También puedes reproducir un sonido, cambiar el título, o mostrar un badge
-      }
+              if (alerta && alerta.length > 0) {
+                  let div = document.createElement("div");
+                  let card_type = "";
+                  let mensaje_estado = "";
 
-      cantidadAnterior = nuevaCantidad; // Actualizar
-    }
+                  if (alerta[3] != "FALSE" && alerta[3] != "ALERTA ACTIVADA!!") {
+                      card_type = "card-green";
+                      mensaje_estado = "🟢 Alerta inactiva";
+                  } else {
+                      card_type = "card-red";
+                      mensaje_estado = "🔴 Alerta activa";
+                  }
 
-    function actualizarAlertas() {
-      fetch("/api/alerts/")
-        .then(response => response.json())
-        .then(data => {
-
-          let cantidad = data.length; 
-
-          notificarNuevaAlerta(cantidad);
-              
-          let container = document.getElementById("alertas-container");
-          container.innerHTML = ""; // Limpiar
-  
-          data.forEach(alerta => {
-            let div = document.createElement("div");
-            div.classList.add("card");
-            div.innerHTML = `
-              <p><strong> Estado:</strong> ${alerta.estado}</p>
-              <p><strong> Descripción:</strong> ${alerta.descripción}</p>
-              <p><strong> Mensaje:</strong> ${alerta.mensaje}</p>
-              <p><strong> Fecha:</strong> ${alerta.fecha}</p>
-            `;
-            container.appendChild(div);
+                  div.classList.add("card", card_type);
+                  div.innerHTML = `
+                      <h3>${mensaje_estado}</h3>
+                      <p><strong>Fecha:</strong> ${alerta[0]}</p>
+                      <p><strong>Descripción:</strong> ${alerta[2]}</p>
+                  `;
+                  container.appendChild(div);
+              } else {
+                  container.innerHTML = "<p>No hay alertas registradas.</p>";
+              }
+          })
+          .catch(error => {
+              console.error("Error cargando la última alerta:", error);
           });
-        })
-        .catch(error => {
-          console.error("Error loading alerts:", error);
-        });
-    }
-  
-    setInterval(actualizarAlertas, 5000);
-    actualizarAlertas();
-  </script>
-  
-
-    <!--
-    {% if alertas %}
-    <div class="cards-container">
-        {% for alerta in alertas %}
-            <div class="card">
-                {% for clave, valor in alerta.items %}
-                    {% if forloop.first %}
-                        <h3>{{ clave|capfirst }}: {{ valor }}</h3>
-                    {% else %}
-                        <p><strong>{{ clave|capfirst }}:</strong> {{ valor }}</p>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endfor %}
-    </div>
-    {% else %}
-        <p>There are not alerts in the system</p>
-    {% endif %}
-    
-    -->
-    
-</body>
-</html>
+  }
 
 
-  {% endblock content%}
-
+    setInterval(actualizarAlerta, 5000);
+    actualizarAlerta();
+</script>
+{% endblock content %}
