@@ -89,6 +89,15 @@ python -m django --version
 
 9. Access http://127.0.0.1:8000 to see the project in action.
 
+10. You can use This users and passwords to test the system
+   As an administrator Rol:
+   User: Administrador123
+   Password:  eafit123*
+
+   As an User Rol:
+   User: mvc0212
+   Password: mari123
+
 
 
 
