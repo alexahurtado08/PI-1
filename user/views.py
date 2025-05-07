@@ -10,6 +10,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 
 
 from django.shortcuts import get_object_or_404, redirect
@@ -39,8 +40,6 @@ def personnel(request):
 def es_admin(user):
     return user.groups.filter(name='admin').exists()
 
-@login_required
-@user_passes_test(es_admin)
 def registrar_usuario(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -50,6 +49,7 @@ def registrar_usuario(request):
             return render(request, 'registrar.html', {'error': 'El usuario ya existe'})
         
         User.objects.create_user(username=username, password=password)
+        messages.success(request, 'Usuario registrado exitosamente')  # ✅ Mensaje de éxito
         return redirect('home')
     
     return render(request, 'registrar.html')
@@ -96,10 +96,11 @@ def delete_user_view(request, user_id):
     try:
         user = User.objects.get(id=user_id)
         user.delete()
-        messages.success(request, "Usuario eliminado correctamente.")
+        messages.success(request, 'Usuario eliminado correctamente.')
     except User.DoesNotExist:
-        messages.error(request, "El usuario no existe.")
-    return redirect('admin_users')
+        messages.error(request, 'El usuario no existe.')
+    
+    return redirect('manage_users')
 
 
 def landing_page(request):

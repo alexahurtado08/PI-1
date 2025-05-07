@@ -1,16 +1,26 @@
-{% extends 'base.html' %} <!-- Cambio de base.html a home.html -->
-{% load static %} <!-- Carga de archivos estáticos (imagenes) -->
-{% block content %} <!-- Bloque de contenido -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
 <!-- Sección principal web -->
-<div class="container mt-5"> <!-- container me centra el contenido y me da margenes lat. (mt-2, es el margen sup.) -->
-    <div class="row align-items-center"> <!-- me alinea contenido de las columnas al centro -->
+<div class="container mt-5">
+    <!-- Bloque de mensajes -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="row align-items-center">
         <!-- Sección de Texto -->
-        <div class="col-md-5 text-start"> <!-- ocupa 5 de las 12 columnas en disp. medianos y text-start me alinea a izquierda -->
-            <h1>Welcome to <span class="text-primary" >SafeDesk</span></h1><!-- negrita y color de texto oscuro (#343a40 en Bootstrap) -->
-            <p class="text-secondary fs-5"> <!-- color letra gris tamaño de letra 20xp en bootstrap -->
+        <div class="col-md-5 text-start">
+            <h1>Welcome to <span class="text-primary">SafeDesk</span></h1>
+            <p class="text-secondary fs-5">
                 "Smart security for a connected campus"
-            </p> 
+            </p>
 
             <!-- Botón para ver alertas-->
             <div style="height: 50px;"></div> 
@@ -20,12 +30,10 @@
         </div>
 
         <!-- Imagen ajustada -->
-        <div class="col-md-7 text-end"> <!-- Imagen más a la derecha -->
+        <div class="col-md-7 text-end">
             <img src="{% static 'images/logo_.png' %}" class="img-fluid" alt="image_homep"> 
         </div>
     </div>
 </div>
 
 {% endblock content %}
-
-
