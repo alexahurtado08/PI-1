@@ -25,6 +25,7 @@ urlpatterns = [
     path('computadoras/', computers_view, name='computadoras'),
     path('computadoras/registrar/', adminViews.registrar_computadora, name='registrar_computadora'),
     path('computadora/eliminar/<int:computadora_id>/', adminViews.eliminar_computadora, name='eliminar_computadora'),
+    path('update/photos/', adminViews.update_photos, name='update_photos'),
    
     # Manejo de archivos multimedia
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

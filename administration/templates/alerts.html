@@ -35,12 +35,36 @@
         margin: 5px 0;
         color: rgba(0, 0, 0, 0.85);
     }
+
+    .card p {
+        margin: 5px 0;
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    .image-pair {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .image-pair div {
+        flex: 1;
+        text-align: center;
+    }
+
+    .image-pair img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
 </style>
 
 <div class="container align-text-top mt-5">
     <h1>🔊 History of alerts</h1>
     <p>Bellow you can see all the alerts registered in the system...</p>
     <div id="alertas-container" class="cards-container"></div>
+    <div id="photos-container" class="cards-container"></div>
     <div style="height: 50px;"></div> 
 </div>
 
@@ -63,6 +87,8 @@
                   } else {
                       card_type = "card-red";
                       mensaje_estado = "🔴 Alerta activa";
+                      setInterval(actualizarFoto, 5000);
+                      actualizarFoto();
                   }
 
                   div.classList.add("card", card_type);
@@ -85,4 +111,72 @@
     setInterval(actualizarAlerta, 5000);
     actualizarAlerta();
 </script>
+
+<script>
+  function actualizarFoto() {
+    fetch("/update/photos/")
+      .then(response => response.json())
+      .then(data => {
+        let container = document.getElementById("photos-container");
+        container.innerHTML = ""; // Limpiar
+
+        if (data.id_archivo || data.id_reconocido) {
+          let div = document.createElement("div");
+
+          let card_type = "";
+          let mensaje_estado = "";
+
+          const urlBase = "https://drive.google.com/thumbnail?id=";
+          const urlArchivo = urlBase + data.id_archivo;
+          const urlReconocido = urlBase + data.id_reconocido;
+
+          if(data.id_reconocido == null){
+            card_type="card-red"
+            mensaje_estado = "🔴 El rostro no coincide con el personal autorizado...";
+          } else {
+            card_type = "card-green";
+            mensaje_estado = "🟢 El rostro coincide con el personal autorizado";
+          }
+
+          div.classList.add("card", card_type);
+
+            let contenido = `
+            <div class="card-content">
+                <div class="image-pair">
+                    <div>
+                        <p><strong>Imagen capturada</strong></p>
+                        <img src="${urlArchivo}" alt="Imagen capturada">
+                    </div>
+            `;
+
+            if (card_type === "card-green") {
+                contenido += `
+                    <div>
+                        <p><strong>Imagen reconocida</strong></p>
+                        <img src="${urlReconocido}" alt="Imagen reconocida">
+                    </div>
+                `;
+            }
+
+            contenido += `
+                </div>
+                <div class="card-body">
+                    <p class="card-title"><strong>${mensaje_estado}</strong></p>
+                </div>
+            </div>
+            `;
+
+            div.innerHTML = contenido;
+            container.appendChild(div);
+
+        } else {
+          container.innerHTML = "<p>No hay imágenes disponibles.</p>";
+        }
+      })
+      .catch(error => {
+        console.error("Error cargando las imágenes:", error);
+      });
+  }
+</script>
+
 {% endblock content %}

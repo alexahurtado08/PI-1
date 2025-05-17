@@ -5,18 +5,57 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from .import ComputerForm
 from .ComputerForm import ComputerForm
-
-
 from django.shortcuts import get_object_or_404
 
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 from .google_sheets import GoogleSheet
 from datetime import date
 import json
 import uuid
 
+# Credenciales para APIs de Google
+
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
+SERVICE_ACCOUNT_FILE = "credenciales.json"
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
+service = build('drive', 'v3', credentials=credentials)
+
 file_name_gs = "credenciales.json"
 google_sheet = "Datos SafeDesk"
+google_sheet_fotos = "Datos faciales Safedesk"
 sheet_name = "Hoja 1"
+
+def buscar_id_por_nombre(nombre_archivo, carpeta_id=None):
+    query = f"name = '{nombre_archivo}'"
+    if carpeta_id:
+        query += f" and '{carpeta_id}' in parents"
+
+    resultados = service.files().list(q=query, fields="files(id, name)").execute()
+    archivos = resultados.get('files', [])
+
+    if archivos:
+        return archivos[0]['id']  # El ID del primer archivo que coincida
+    return None
+
+def update_photos(request):
+    google = GoogleSheet(file_name_gs, google_sheet_fotos, sheet_name)
+    photo_data = google.get_last_row()  # Suponiendo que devuelve una lista como [nombre1, nombre2]
+
+    if photo_data and len(photo_data) >= 2:
+        id_archivo = buscar_id_por_nombre(photo_data[0])
+        id_reconocido = buscar_id_por_nombre(photo_data[1])
+
+        return JsonResponse({
+            'id_archivo': id_archivo,
+            'id_reconocido': id_reconocido
+        })
+    else:
+        return JsonResponse({'error': 'No se encontró la foto'}, status=404)
+
 
 def alerts(request):
     return render(request, 'alerts.html')
@@ -61,8 +100,6 @@ def registrar_computadora(request):
     else:
         form = ComputerForm()
     return render(request, 'registrar_computadora.html', {'form': form})
-
-
 
 @login_required
 @user_passes_test(es_admin)
