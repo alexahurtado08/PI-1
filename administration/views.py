@@ -13,14 +13,18 @@ from .google_sheets import GoogleSheet
 from datetime import date
 import json
 import uuid
-
+import os
 # Credenciales para APIs de Google
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, 'credenciales.json')
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 SERVICE_ACCOUNT_FILE = "credenciales.json"
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
 
 service = build('drive', 'v3', credentials=credentials)
 
