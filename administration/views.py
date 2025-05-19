@@ -26,6 +26,7 @@ if not SERVICE_ACCOUNT_FILE or not os.path.isfile(SERVICE_ACCOUNT_FILE):
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES
 )
+print("Archivo de credenciales en:", SERVICE_ACCOUNT_FILE)
 
 service = build('drive', 'v3', credentials=credentials)
 
