@@ -100,7 +100,7 @@ def delete_user_view(request, user_id):
     except User.DoesNotExist:
         messages.error(request, 'El usuario no existe.')
     
-    return redirect('manage_users')
+    return redirect('admin_users')
 
 
 def landing_page(request):
