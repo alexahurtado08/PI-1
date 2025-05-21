@@ -10,7 +10,6 @@ SafeDesk is an advanced security system designed to protect university computers
 - **Real-time Monitoring** – Detects unauthorized movements of computers near classroom exits.
 - **Instant Alerts** – Sends notifications within 5 seconds to security personnel.
 - **Facial Recognition AI** – Identifies unauthorized users using a database of authorized personnel.
-- **Geolocation Tracking** – Provides real-time location of computers if removed.
 - **Wireless Connectivity** – Ensures remote access and communication.
 - **Web-based Management** – Allows admin control over users, devices, and security logs.
 - **History Log** – Stores alerts with date, time, location, and user details.
