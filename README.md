@@ -95,7 +95,11 @@ python -m django --version
    As an User Rol:
    User: mvc0212
    Password: mari123
-
+## System use like an administrator
+1. On the main page you will find access to several of the main tabs such as:
+    Alerts, authorized personnel, computer and user management.
+2. If you enter any page you will find information about each component.
+3. 
 
 
 
