@@ -46,10 +46,10 @@ def registrar_usuario(request):
         password = request.POST['password']
         
         if User.objects.filter(username=username).exists():
-            return render(request, 'registrar.html', {'error': 'El usuario ya existe'})
+            return render(request, 'registrar.html', {'error': 'The user already exists'})
         
         User.objects.create_user(username=username, password=password)
-        messages.success(request, 'Usuario registrado exitosamente')  # ✅ Mensaje de éxito
+        messages.success(request, 'User successfully registered')  
         return redirect('home')
     
     return render(request, 'registrar.html')
@@ -61,14 +61,14 @@ def login_view(request):
             # Autenticar usuario
             user = form.get_user()
             login(request, user)
-            messages.success(request, "Has iniciado sesión correctamente.")
+            messages.success(request, "You have successfully logged in.")
             # Redirigir al dashboard adecuado según el rol
             if user.is_staff:
                 return redirect('home')  # Admin Dashboard
             else:
                 return redirect('home')  # User Dashboard
         else:
-            messages.error(request, "Nombre de usuario o contraseña incorrectos.")
+            messages.error(request, "Incorrect username or password.")
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -80,7 +80,7 @@ def logout_view(request):
 
 def custom_logout(request):
     logout(request)
-    messages.success(request, "Se ha cerrado tu sesión correctamente.")
+    messages.success(request, "You have been successfully logged out.")
     return redirect(reverse('landing'))  # Redirige a la página de login
 
 
@@ -96,9 +96,9 @@ def delete_user_view(request, user_id):
     try:
         user = User.objects.get(id=user_id)
         user.delete()
-        messages.success(request, 'Usuario eliminado correctamente.')
+        messages.success(request, 'User successfully deleted.')
     except User.DoesNotExist:
-        messages.error(request, 'El usuario no existe.')
+        messages.error(request, 'The user does not exist.')
     
     return redirect('admin_users')
 
